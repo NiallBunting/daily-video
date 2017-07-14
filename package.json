@@ -1,0 +1,27 @@
+{
+  "name": "daily-video",
+  "version": "0.0.1",
+  "description": "Allow queuing and release of a video playlist.",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NiallBunting/daily-video.git"
+  },
+  "keywords": [
+    "videos",
+    "playlist",
+    "daily"
+  ],
+  "author": "Niall Bunting",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/NiallBunting/daily-video/issues"
+  },
+  "homepage": "https://github.com/NiallBunting/daily-video#readme",
+  "dependencies": {
+    "express": "^4.15.3"
+  }
+}
