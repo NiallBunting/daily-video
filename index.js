@@ -8,20 +8,25 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 var express = require('express');
-//var mongoose = require('mongoose');
-//var config = require('./config/environment');
+var mongoose = require('mongoose');
+var config = require('./config/environment');
 
 // Connect to database
 //mongoose.connect(config.mongo.uri, config.mongo.options);
+mongoose.connect(config.mongo.uri);
 
 // Populate DB with sample data
-//if (config.seedDB) {
-//  require('./config/seed');
-//}
+if (config.seedDB) {
+  require('./config/seed');
+}
 
 // Setup server
 var app = express();
 var server = require('http').createServer(app);
+
+var bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json())
 //var socketio = require('socket.io')(server, {
 //  serveClient: (config.env === 'production') ? false : true,
 //  path: '/socket.io-client'

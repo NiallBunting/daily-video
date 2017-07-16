@@ -8,21 +8,30 @@
  */
 
 'use strict';
-
+var Videos = require('./video.model');
 
 // Get list of things
 exports.index = function (req, res) {
-    return res.status(501).send('Not implemented.');
+  Videos.find(function (err, videos) {
+    if (err) {return handleError(res, err);}
+    return res.status(200).json(videos);
+  }); 
 };
 
 // Get a single thing
 exports.show = function (req, res) {
-    return res.status(501).send('Not implemented.');
+  Videos.findById(req.params.id, function (err, video) {
+    if (err) {return handleError(res, err);}
+    return res.status(200).json(video);
+  });
 };
 
 // Creates a new thing in the DB.
 exports.create = function (req, res) {
-    return res.status(501).send('Not implemented.');
+  Videos.create(req.body, function (err, video) {
+    if (err) {return handleError(res, err);}
+    return res.status(201).json(video);
+  });
 };
 
 // Updates an existing thing in the DB.
@@ -32,7 +41,12 @@ exports.update = function (req, res) {
 
 // Deletes a thing from the DB.
 exports.destroy = function (req, res) {
-    return res.status(501).send('Not implemented.');
+  Videos.findById(req.params.id, function (err, video) {
+    video.remove(function (err) {
+      if(err){return handleError(res, err);}
+      return res.sendStatus(204);
+    });
+  });
 };
 
 function handleError(res, err) {
