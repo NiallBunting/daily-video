@@ -36,7 +36,14 @@ exports.create = function (req, res) {
 
 // Updates an existing thing in the DB.
 exports.update = function (req, res) {
-    return res.status(501).send('Not implemented.');
+  var RESTRICTED = ["date_created", "_id", "__v"];
+  for(var i = 0; i < RESTRICTED.length; i++) {
+    if(RESTRICTED[i] in req.body) {
+      return res.status(403).send("Can't change " + RESTRICTED[i] + ".");
+    }
+  }
+  //TODO
+  return res.status(501).send('Not implemented.');
 };
 
 // Deletes a thing from the DB.
