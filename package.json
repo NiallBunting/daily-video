@@ -4,6 +4,7 @@
   "description": "Allow queuing and release of a video playlist.",
   "main": "index.js",
   "scripts": {
+    "start": "while true; do node index.js; done",
     "test": "test"
   },
   "repository": {
