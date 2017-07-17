@@ -10,7 +10,7 @@
 'use strict';
 
 var Playlist = require('./playlist.model');
-var Videos = require('../video/video.model');
+var videosModule = require('../video/video.module');
 
 // Get list of things
 exports.index = function (req, res) {
@@ -33,9 +33,10 @@ exports.show = function (req, res) {
     var videosDetails = [];
     var promises = [];
     for (var i = 0, len = playlist.videos.length; i < len; i++) {
-      promises.push(getVideo(playlist.videos[i]).then(function (d) {
+      //ERROR catch does not end execution here
+      promises.push(videosModule(playlist.videos[i]).then(function (d) {
         videosDetails.push(d);
-      }));
+      }).catch(function (err) {return handleError(res, err)}));
     }
 
     Promise.all(promises).then(function () {
@@ -44,16 +45,6 @@ exports.show = function (req, res) {
     });
   });
 };
-
-//Gets a video the video details from and id.
-function getVideo(id) {
-  return new Promise(function(resolve, reject) {
-    Videos.findById(id).lean().exec( function (err, videoDetails) {
-      if (err) {return reject(err);}
-      resolve (videoDetails);
-    });
-  });
-}
 
 // Creates a new playlist
 exports.create = function (req, res) {
