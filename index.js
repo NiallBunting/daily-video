@@ -36,7 +36,7 @@ app.use(bodyParser.json())
 require('./routes')(app);
 
 // Start server
-server.listen(3000, '0.0.0.0', function () {
+server.listen(config.server.port, config.server.ip, function () {
   console.log('Express server listening on %d, in %s mode', 3000, app.get('env'));
 
   // this is used to support naught for zero-downtime deployments
